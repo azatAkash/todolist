@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS app_user (
 -- основная таблица задач
 CREATE TABLE IF NOT EXISTS tasks (
   id            bigserial PRIMARY KEY,
-  user_id       uuid REFERENCES app_user(id) ON DELETE SET NULL,
   title         text NOT NULL,                     -- короткий текст задачи
+  user_id       uuid REFERENCES app_user(id) ON DELETE SET NULL,
   description   text,                              -- детализация (опционально)
   due_at        timestamptz,                       -- дата/время выполнения (для фильтров: сегодня/неделя/просроч.)
   priority      task_priority NOT NULL DEFAULT 'medium',
