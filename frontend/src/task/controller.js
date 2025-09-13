@@ -1,45 +1,16 @@
 // src/task/controller.js
 import { api } from "../api.js";
+import { renderLayout, renderItems, initPriorityDropdown } from "./view.js";
+import { model } from "./model.js";
+import { getPreferredTheme, applyTheme } from "../helpers/theme.js";
+import { getEls } from "../helpers/dom-queries.js";
 import {
-  renderLayout,
-  getEls,
-  renderItems,
-  initPriorityDropdown,
+  toISOFromLocal,
   initDateMinToday,
   initDateAndTimeMin,
-} from "./view.js";
-import { model } from "./model.js";
+} from "../helpers/time.js";
 
 const isCompleted = (t) => (t.status || "").toLowerCase() === "completed";
-
-function applyTheme(theme, btn) {
-  document.documentElement.setAttribute("data-theme", theme);
-  localStorage.setItem("theme", theme);
-  if (btn) {
-    const dark = theme === "dark";
-    btn.setAttribute("aria-pressed", String(dark));
-    btn.textContent = dark ? "☀️ Light" : "🌙 Dark";
-  }
-}
-
-function getPreferredTheme() {
-  const saved = localStorage.getItem("theme");
-  if (saved === "light" || saved === "dark") return saved;
-  return window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
-function toISOFromLocal(dateStr, timeStr) {
-  if (!dateStr) return null;
-  const [y, m, d] = dateStr.split("-").map(Number);
-  let hh = 0,
-    mm = 0;
-  if (timeStr) [hh, mm] = timeStr.split(":").map(Number);
-  const dt = new Date(y, m - 1, d, hh, mm, 0, 0);
-  return dt.toISOString();
-}
 
 export async function init() {
   renderLayout();

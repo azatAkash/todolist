@@ -1,4 +1,4 @@
-export namespace main {
+export namespace repo {
 	
 	export class CreateTaskInput {
 	    title: string;

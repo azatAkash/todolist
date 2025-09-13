@@ -24,7 +24,6 @@ export function renderLayout() {
         </div>
       </form>
 
-      <!-- One scroll container that holds both sections -->
       <div class="lists">
         <!-- Active tasks -->
         <section class="active-section">
@@ -59,75 +58,6 @@ export function renderLayout() {
     </div>`;
 }
 
-export function getEls() {
-  return {
-    form: document.querySelector(".todo-form"),
-    input: document.querySelector(".todo-input"),
-    date: document.querySelector(".todo-date"),
-    time: document.querySelector(".todo-time"),
-    importanceDropdown: document.querySelector(".importance-dropdown"),
-    listActive: document.querySelector(".todos-active"),
-    listCompleted: document.querySelector(".todos-completed"),
-    listsRoot: document.querySelector(".lists"),
-    completedSection: document.querySelector(".completed-section"),
-    completedToggle: document.querySelector(".completed-toggle"),
-    completedCountEl: document.querySelector(".completed-count"),
-    completedBody: document.querySelector(".completed-body"),
-    themeToggle: document.querySelector(".theme-toggle"),
-  };
-}
-
-export function initPriorityDropdown(dropdown, current = "medium") {
-  const opts = [
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
-    { value: "high", label: "High" },
-  ];
-  dropdown.innerHTML = opts
-    .map(
-      (o) =>
-        `<option value="${o.value}" ${o.value === current ? "selected" : ""}>${
-          o.label
-        }</option>`
-    )
-    .join("");
-}
-
-export function initDateMinToday(dateInput) {
-  if (!dateInput) return;
-  const t = new Date();
-  const yyyy = t.getFullYear();
-  const mm = String(t.getMonth() + 1).padStart(2, "0");
-  const dd = String(t.getDate()).padStart(2, "0");
-  dateInput.min = `${yyyy}-${mm}-${dd}`;
-}
-
-export function initDateAndTimeMin(dateInput, timeInput) {
-  if (!dateInput || !timeInput) return;
-  const pad = (n) => String(n).padStart(2, "0");
-  const todayStr = (() => {
-    const now = new Date();
-    return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
-      now.getDate()
-    )}`;
-  })();
-  dateInput.min = todayStr;
-  const updateTimeMin = () => {
-    if (dateInput.value === todayStr) {
-      const now = new Date();
-      now.setSeconds(0, 0);
-      timeInput.min = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-      if (timeInput.value && timeInput.value < timeInput.min)
-        timeInput.value = timeInput.min;
-    } else {
-      timeInput.removeAttribute("min");
-    }
-  };
-  updateTimeMin();
-  dateInput.addEventListener("change", updateTimeMin);
-}
-
-/** Generic row renderer (reused for active & completed) */
 export function renderItems(listEl, tasks) {
   listEl.innerHTML = "";
   const frag = document.createDocumentFragment();
@@ -177,4 +107,20 @@ export function renderItems(listEl, tasks) {
     frag.appendChild(row);
   });
   listEl.appendChild(frag);
+}
+
+export function initPriorityDropdown(dropdown, current = "medium") {
+  const opts = [
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High" },
+  ];
+  dropdown.innerHTML = opts
+    .map(
+      (o) =>
+        `<option value="${o.value}" ${o.value === current ? "selected" : ""}>${
+          o.label
+        }</option>`
+    )
+    .join("");
 }
