@@ -1,8 +1,0 @@
-/* 1) Kill outer scrolling */
-html,
-body {
-  box-sizing: border-box;
-  overflow: hidden; /* no external scrollbars */
-  margin: 0;
-  padding: 0;
-}

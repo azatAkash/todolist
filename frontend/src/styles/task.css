@@ -1,0 +1,128 @@
+:root {
+  --frame: 32px; /* red top/bottom bands */
+  --card-pad: 24px;
+}
+
+/* page fills the viewport; background is the red you want to see */
+html,
+body,
+#app {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+#app {
+  background: #ff8591;
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* card spans between top/bottom margins */
+  overflow: hidden; /* no page scroll */
+}
+
+/* the white card */
+.container {
+  width: min(900px, 80%);
+  margin-block: var(--frame); /* <-- red “margins” */
+  height: calc(100vh - (var(--frame) * 2)); /* fit between them */
+  background: #fff;
+  padding: var(--card-pad);
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* card itself doesn't scroll */
+}
+
+/* form stays at the top (doesn't need to be sticky now) */
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #2c6cff;
+  background: #fff;
+  z-index: 1;
+}
+
+.additional-data-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* header + list take remaining space */
+.todos-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* allow child to scroll */
+}
+
+/* only the list scrolls */
+.todos {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px;
+  padding-bottom: calc(var(--card-pad) + env(safe-area-inset-bottom, 0px));
+}
+
+/* grid stays intact; title shrinks */
+.todo-header-container,
+.todo-row {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) 100px 80px 40px;
+  column-gap: 20px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+.col-title {
+  min-width: 0;
+}
+.col-title span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* small screens keep the frame but tighten widths */
+@media (max-width: 720px) {
+  .container {
+    width: 90%;
+  }
+  :root {
+    --frame: 16px;
+    --card-pad: 16px;
+  }
+  .todo-header-container,
+  .todo-row {
+    grid-template-columns: 14px 706px 88px 72px 34px;
+    column-gap: 10px;
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --frame: 12px;
+    --card-pad: 12px;
+  }
+  .todo-header-container,
+  .todo-row {
+    grid-template-columns: 12px 1fr;
+    column-gap: 10px;
+    padding: 10px 0;
+    overflow: none;
+    width: 95%;
+  }
+
+  .due-date-header,
+  .priority-header,
+  .delete,
+  .due-date,
+  .priority {
+    display: none;
+  }
+}

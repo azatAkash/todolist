@@ -1,6 +1,6 @@
+// src/model.js
 const state = { tasks: [], filter: "all", sort: "created" };
 const subs = new Set();
-
 const notify = () =>
   subs.forEach((fn) => fn({ ...state, tasks: [...state.tasks] }));
 
