@@ -87,6 +87,11 @@ body {
   text-overflow: ellipsis;
 }
 
+.is-completed {
+  text-decoration: line-through;
+  background-color: #f9fff6;
+}
+
 /* small screens keep the frame but tighten widths */
 @media (max-width: 720px) {
   .container {
@@ -125,4 +130,31 @@ body {
   .priority {
     display: none;
   }
+}
+
+/* The single scroll area that holds both sections */
+.lists {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Completed collapsible */
+.completed-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  border: 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+.completed-section .chev {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+.completed-section[aria-expanded="true"] .chev {
+  transform: rotate(90deg);
 }
