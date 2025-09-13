@@ -1,8 +1,12 @@
 // src/task/view.js
 export function renderLayout() {
   document.querySelector("#app").innerHTML = `
+    
     <div class="container">
-      <div class="page-title">Tasks</div>
+      <div class="theme-bar">
+        <button type="button" class="theme-toggle" aria-pressed="false">🌙 Dark</button>
+      </div>
+      <div class="page-title">Tasks</div>  
 
       <form class="todo-form" autocomplete="off">
         <input class="todo-input" name="title" placeholder="Add todo…" required />
@@ -69,6 +73,7 @@ export function getEls() {
     completedToggle: document.querySelector(".completed-toggle"),
     completedCountEl: document.querySelector(".completed-count"),
     completedBody: document.querySelector(".completed-body"),
+    themeToggle: document.querySelector(".theme-toggle"),
   };
 }
 

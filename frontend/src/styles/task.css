@@ -1,38 +1,23 @@
-:root {
-  --frame: 32px; /* red top/bottom bands */
-  --card-pad: 24px;
-}
-
-/* page fills the viewport; background is the red you want to see */
-html,
-body,
-#app {
-  height: 100%;
-}
-body {
-  margin: 0;
-}
-#app {
-  background: #ff8591;
-  display: flex;
-  justify-content: center;
-  align-items: stretch; /* card spans between top/bottom margins */
-  overflow: hidden; /* no page scroll */
-}
-
 /* the white card */
 .container {
   width: min(900px, 80%);
   margin-block: var(--frame); /* <-- red “margins” */
   height: calc(100vh - (var(--frame) * 2)); /* fit between them */
-  background: #fff;
   padding: var(--card-pad);
   border-radius: 14px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-
+  background: var(--card-bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   overflow: hidden; /* card itself doesn't scroll */
+}
+
+.page-title {
+  color: var(--text);
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 1.5rem;
 }
 
 /* form stays at the top (doesn't need to be sticky now) */
@@ -41,8 +26,8 @@ body {
   flex-direction: column;
   gap: 10px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #2c6cff;
-  background: #fff;
+  border-bottom: 2px solid var(--accent);
+  background: var(--card-bg);
   z-index: 1;
 }
 
@@ -68,6 +53,9 @@ body {
   padding-bottom: calc(var(--card-pad) + env(safe-area-inset-bottom, 0px));
 }
 
+.todo-header-container {
+  font-weight: 600;
+}
 /* grid stays intact; title shrinks */
 .todo-header-container,
 .todo-row {
@@ -76,7 +64,9 @@ body {
   column-gap: 20px;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #f2f2f2;
+  color: var(--muted);
+
+  border-bottom: 1px solid var(--border);
 }
 .col-title {
   min-width: 0;
@@ -89,7 +79,7 @@ body {
 
 .is-completed {
   text-decoration: line-through;
-  background-color: #f9fff6;
+  background: var(--row-alt);
 }
 
 /* small screens keep the frame but tighten widths */

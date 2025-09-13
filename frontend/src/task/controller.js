@@ -12,6 +12,25 @@ import { model } from "./model.js";
 
 const isCompleted = (t) => (t.status || "").toLowerCase() === "completed";
 
+function applyTheme(theme, btn) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+  if (btn) {
+    const dark = theme === "dark";
+    btn.setAttribute("aria-pressed", String(dark));
+    btn.textContent = dark ? "☀️ Light" : "🌙 Dark";
+  }
+}
+
+function getPreferredTheme() {
+  const saved = localStorage.getItem("theme");
+  if (saved === "light" || saved === "dark") return saved;
+  return window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
 function toISOFromLocal(dateStr, timeStr) {
   if (!dateStr) return null;
   const [y, m, d] = dateStr.split("-").map(Number);
@@ -24,6 +43,7 @@ function toISOFromLocal(dateStr, timeStr) {
 
 export async function init() {
   renderLayout();
+  const els = getEls();
   const {
     form,
     input,
@@ -37,12 +57,19 @@ export async function init() {
     completedToggle,
     completedCountEl,
     completedBody,
-  } = getEls();
+    themeToggle,
+  } = els;
 
   initPriorityDropdown(importanceDropdown, "medium");
   initDateMinToday(date);
   initDateAndTimeMin(date, time);
 
+  applyTheme(getPreferredTheme(), themeToggle);
+  themeToggle.addEventListener("click", () => {
+    const current =
+      document.documentElement.getAttribute("data-theme") || "light";
+    applyTheme(current === "dark" ? "light" : "dark", themeToggle);
+  });
   // render on model updates: split into active/completed
   model.subscribe(({ tasks }) => {
     const active = tasks.filter((t) => !isCompleted(t));

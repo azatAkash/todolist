@@ -1,8 +1,67 @@
 @import url(./task.css);
+
+/* THEME TOKENS */
+:root {
+  --frame-bg: #ff8591; /* red background around the card (light) */
+  --card-bg: #ffffff; /* card background (light) */
+  --text: #111; /* primary text (light) */
+  --muted: #555; /* muted text */
+  --border: #f2f2f2; /* dividers */
+  --accent: #2c6cff; /* accent (form underline) */
+  --row-alt: #fafafa; /* subtle completed bg */
+  --frame: 32px; /* red top/bottom bands */
+  --card-pad: 24px;
+}
+
+[data-theme="dark"] {
+  --frame-bg: #0e0e10; /* almost black */
+  --card-bg: #151517; /* dark card */
+  --text: #ffffff; /* primary text */
+  --muted: #f6f6f6;
+  --border: #2a2a2e;
+  --accent: #6ea8ff;
+  --row-alt: #1b1b1f;
+}
+
 html,
 body {
   box-sizing: border-box;
   overflow: hidden; /* no external scrollbars */
   margin: 0;
   padding: 0;
+}
+
+/* page fills the viewport; background is the red you want to see */
+html,
+body,
+#app {
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#app {
+  background: var(--frame-bg);
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* card spans between top/bottom margins */
+  overflow: hidden; /* no page scroll */
+}
+
+/* Theme toggle */
+.theme-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
 }
