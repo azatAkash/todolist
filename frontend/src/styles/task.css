@@ -35,7 +35,10 @@
   display: flex;
   justify-content: space-between;
 }
-
+.chev,
+.completed-toggle {
+  color: var(--text);
+}
 /* header + list take remaining space */
 .todos-container {
   flex: 1;
@@ -68,58 +71,31 @@
 
   border-bottom: 1px solid var(--border);
 }
+/* allow the growing column to shrink inside the grid */
 .col-title {
   min-width: 0;
 }
-.col-title span {
-  white-space: nowrap;
+
+/* wrap anywhere (even in very long words) */
+.col-title > .title {
+  white-space: normal; /* not nowrap */
+  overflow-wrap: anywhere; /* break long tokens */
+  word-break: break-word; /* fallback */
+  display: block;
+  max-width: 100%;
+}
+
+/* If you want only two lines and then an ellipsis: */
+.col-title > .title.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .is-completed {
   text-decoration: line-through;
   background: var(--row-alt);
-}
-
-/* small screens keep the frame but tighten widths */
-@media (max-width: 720px) {
-  .container {
-    width: 90%;
-  }
-  :root {
-    --frame: 16px;
-    --card-pad: 16px;
-  }
-  .todo-header-container,
-  .todo-row {
-    grid-template-columns: 14px 706px 88px 72px 34px;
-    column-gap: 10px;
-    padding: 8px 0;
-  }
-}
-
-@media (max-width: 620px) {
-  :root {
-    --frame: 12px;
-    --card-pad: 12px;
-  }
-  .todo-header-container,
-  .todo-row {
-    grid-template-columns: 12px 1fr;
-    column-gap: 10px;
-    padding: 10px 0;
-    overflow: none;
-    width: 95%;
-  }
-
-  .due-date-header,
-  .priority-header,
-  .delete,
-  .due-date,
-  .priority {
-    display: none;
-  }
 }
 
 /* The single scroll area that holds both sections */

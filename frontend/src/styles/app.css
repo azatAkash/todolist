@@ -1,6 +1,7 @@
 @import url(./task.css);
+@import url(./filter.css);
+@import url(./modal-delete.css);
 
-/* THEME TOKENS */
 :root {
   --frame-bg: #ff8591; /* red background around the card (light) */
   --card-bg: #ffffff; /* card background (light) */
@@ -64,4 +65,44 @@ body,
 }
 .theme-toggle:hover {
   border-color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: 97%;
+    padding: 0;
+  }
+  :root {
+    --frame: 16px;
+    --card-pad: 16px;
+  }
+
+  .todo-header-container,
+  .todo-row {
+    grid-template-columns: 14px 1fr 88px 72px 34px;
+    column-gap: 10px;
+    padding: 8px 0;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --frame: 12px;
+    --card-pad: 12px;
+  }
+  .todos,
+  .todo-row {
+    padding: 0;
+    margin: 0;
+  }
+
+  .todo-header-container,
+  .todo-row {
+    grid-template-columns: 12px 1fr 88px 72px 34px;
+    column-gap: 10px;
+    padding: 10px 0;
+    overflow: none;
+    width: 95%;
+  }
 }

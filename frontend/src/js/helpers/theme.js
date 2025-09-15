@@ -1,4 +1,4 @@
-export function applyTheme(theme, btn) {
+function applyTheme(theme, btn) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("theme", theme);
   if (btn) {
@@ -8,11 +8,20 @@ export function applyTheme(theme, btn) {
   }
 }
 
-export function getPreferredTheme() {
+function getPreferredTheme() {
   const saved = localStorage.getItem("theme");
   if (saved === "light" || saved === "dark") return saved;
   return window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
+}
+
+export function bindTheme(els) {
+  const { themeToggle } = els;
+  applyTheme(getPreferredTheme(), themeToggle);
+  themeToggle.addEventListener("click", () => {
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    applyTheme(cur === "dark" ? "light" : "dark", themeToggle);
+  });
 }

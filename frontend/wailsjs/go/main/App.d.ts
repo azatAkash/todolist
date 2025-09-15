@@ -4,7 +4,7 @@ import {repo} from '../models';
 
 export function CreateTask(arg1:repo.CreateTaskInput):Promise<Array<repo.Task>>;
 
-export function ListTasks(arg1:string,arg2:string):Promise<Array<repo.Task>>;
+export function ListTasks(arg1:string,arg2:string,arg3:string,arg4:string):Promise<Array<repo.Task>>;
 
 export function RemoveTaskByID(arg1:number):Promise<Array<repo.Task>>;
 
